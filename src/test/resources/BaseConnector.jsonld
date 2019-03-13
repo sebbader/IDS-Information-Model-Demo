@@ -1,0 +1,13 @@
+{
+  "@context" : "https://w3id.org/idsa/contexts/context.jsonld",
+  "@type" : "ids:BaseConnector",
+  "catalog" : {
+    "@type" : "ids:Catalog",
+    "@id" : "https://w3id.org/idsa/autogen/catalog/e41ec9b6-3309-4805-969a-e95ebe1be811"
+  },
+  "maintainer" : "http://www.iais.fraunhofer.de/",
+  "curator" : "http://www.iais.fraunhofer.de/",
+  "inboundModelVersions" : [ "1.0.2" ],
+  "outboundModelVersion" : "1.0.2",
+  "@id" : "https://w3id.org/idsa/autogen/baseConnector/43d5a33e-4f8a-44f0-aa25-f3f2d6b12ec1"
+}
