@@ -56,11 +56,12 @@ todo: every owl class in the infomodel is represented by a builder class
 
 [](src/test/java/InstantiateInfomodelClass.java)
 
-### Object Serialization 
+### Object Serialization and Deserialization 
+
+todo: infomodel instances are expressed as rdf, default format used by the lib is json-ld
 
 [](src/test/java/SerializeInstantiatedClass.java)
 
-### Object Deserialization
 
 [](src/test/java/DeserializeInstantiatedClass.java)
 
