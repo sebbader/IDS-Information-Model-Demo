@@ -6,16 +6,77 @@ Infomodel classes, serializing, deserializing and validating them.
 
 ## Background
 
+The IDS Information Model is a formalization of the IDS' concepts as an [RDF](https://www.w3.org/RDF/)-based ontology. It can
+be considered as a kind of data model, describing how these concepts (e.g., architectural components such as connectors, brokers) 
+are characterized and how they relate to each other. Therefore, in order to correctly describe a specific connector (i.e., an "instance"),
+the descriptions need to conform to the Information Model ontology.
 
+Creating instances can be done by creating an RDF document, using properties and classes of the ontology in a syntactically and
+logically consistent way. This requires learning the concept and ideas of RDF and [Linked Data](http://linkeddata.org/), which imposes
+quite some effort on developers trying to get started with creating services for the IDS.
 
-## Accessing the Library
+As an effort to quickly get development teams on board to contribute and access IDS services such as custom connectors, we
+provide a mapping of the [Information Model Ontology](https://github.com/IndustrialDataSpace/InformationModel) to the Java programming
+language in the form of a library. It supports instantiation of ontology classes as Java beans and to automatically convert
+(serialize) them to an RDF representation. Using an additionally provided Java validation library makes sure that each instantiated
+object conforms to the Information Model ontology.         
 
-## Object Serialization and Deserialization
+## Accessing and Integrating the Libraries
+
+[Fraunhofer IAIS](https://www.iais.fraunhofer.de/) ([EIS](https://www.iais.fraunhofer.de/en/institute/departments/enterprise-information-systems.html) 
+department) runs a Maven artifactory that serves these utility libraries for using the Information Model conveniently with the
+Java programming language. It can be
+
+* accessed directly [here](https://maven.iais.fraunhofer.de/artifactory/eis-ids-public/),
+* or included in Maven-based project's ```pom.xml``` file like this:
+```xml
+<repositories>
+   <repository>
+       <id>eis-snapshot-repo</id>
+       <name>maven-snapshots</name>
+       <url>http://maven.iais.fraunhofer.de/artifactory/eis-ids-public</url>
+   </repository>
+</repositories>
+```
+
+The Information Model Java library can then be included in your ```dependencies``` section in this way: 
+```xml
+<dependency>
+    <groupId>de.fraunhofer.iais.eis.ids.infomodel</groupId>
+    <artifactId>java</artifactId>
+    <version>1.0.2-SNAPSHOT</version>
+</dependency>
+``` 
+
+## Basic Functionality
+
+todo: every owl class in the infomodel is represented by a builder class
+
+### Object Instantiation
+
+[](src/test/java/InstantiateInfomodelClass.java)
+
+### Object Serialization 
+
+[](src/test/java/SerializeInstantiatedClass.java)
+
+### Object Deserialization
+
+[](src/test/java/DeserializeInstantiatedClass.java)
 
 ## Validation
+
+```xml
+<dependency>
+    <groupId>de.fraunhofer.iais.eis.ids.infomodel</groupId>
+    <artifactId>validation-serialization-provider</artifactId>
+    <version>1.0.2-SNAPSHOT</version>
+</dependency>
+```
 
 ### Implementing Custom Validators
 
 ## References
 
-[IDS Information Model](https://github.com/IndustrialDataSpace/InformationModel)
+* [IDS Information Model](https://github.com/IndustrialDataSpace/InformationModel)
+* [Information Model Library Maven Repository](https://maven.iais.fraunhofer.de/artifactory/eis-ids-public/)
