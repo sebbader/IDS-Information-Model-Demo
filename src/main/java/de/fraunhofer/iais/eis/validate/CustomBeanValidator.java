@@ -16,6 +16,11 @@ import java.util.Collection;
 
 public class CustomBeanValidator implements BeanValidator {
 
+    /**
+     * This method is called by the Information Model library builders for each built instance. Reflection can be used
+     * to validate these instances. In this example we show how to check if (i) URLs that are not instance IDs are
+     * resolvable and (ii) how security tokens can be filtered out for validation.
+     */
     public <T> void validate(T t) throws ConstraintViolationException {
         Collection<String> exceptionMessages = new ArrayList<>();
 
@@ -67,7 +72,7 @@ public class CustomBeanValidator implements BeanValidator {
     }
 
     private boolean validateToken(Token token) {
-        // add the validation code here!
+        // Add the validation code here! At the moment, we default to every token being invalid.
         return false;
     }
 }
