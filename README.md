@@ -1,6 +1,6 @@
 # Using the IDS Information Model Programmatically
 
-This Project demonstrates how to work with the Industrial Data Space (IDS) Information Model programmatically, using Java.
+This project demonstrates how to work with the Industrial Data Space (IDS) Information Model programmatically, using Java.
 It consists of a [set of classes ](src/test/java) containing unit tests that show how to deal with aspects of instantiating
 Infomodel classes, serializing, deserializing and validating them.  
 
@@ -76,7 +76,22 @@ todo: every owl class in the infomodel is represented by a builder class
 
 ### Implementing Custom Validators
 
+<!--
+## For those that don't like Java...
+
+todo: describe how the project is platform-independent
+
+### The Information Model JSON-LD Serialization Format
+
+todo: describe how objects are serialized and deserialized to/from JSON-LD
+-->
+
 ## References
 
 * [IDS Information Model](https://github.com/IndustrialDataSpace/InformationModel)
 * [Information Model Library Maven Repository](https://maven.iais.fraunhofer.de/artifactory/eis-ids-public/)
+
+## Contributors
+
+* Christian Mader (Fraunhofer IAIS)
+* Benedikt Imbusch (Fraunhofer IAIS)
