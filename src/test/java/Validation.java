@@ -31,7 +31,6 @@ public class Validation {
         c.setTime(new Date());
         XMLGregorianCalendar now = DatatypeFactory.newInstance().newXMLGregorianCalendar(c);
 
-
         new ConnectorAvailableMessageBuilder()
                 ._issuerConnector_(new URL("http://www.iais.fraunhofer.de"))
                 ._issued_(now)
