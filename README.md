@@ -50,7 +50,12 @@ The Information Model Java library can then be included in your ```dependencies`
 
 ## Basic Functionality
 
-todo: every owl class in the infomodel is represented by a builder class
+Each OWL class in the ontology is represented by an identically named interface in the Java library. In addition, implementations
+of these interfaces are provided as classes with ```Impl``` prefix. So, for instance, the class ```Catalog```, which is defined as
+```ids:Catalog a owl:Class``` in the Information Model ontology, is represented as ```public interface Catalog``` in the file
+```Catalog.class``` of the library and accompanied by a ```public class CatalogImpl implements Catalog``` that is defined
+in the file ```CatalogImpl.class```.
+
 
 ### Object Instantiation
 
