@@ -93,6 +93,12 @@ There are two ways to serialize an object (see Section "Object Instantiation"). 
 The second (alternative) way is to directly invoke the ```Serializer``` class, as shown in method ```serializeToJsonLD_bySerializerCall()```
 in file [DeserializeInstantiatedClass.java](src/test/java/DeserializeInstantiatedClass.java). 
 
+#### Deserialization
+
+The method ```deserialize()``` in the file [DeserializeInstantiatedClass.java](src/test/java/DeserializeInstantiatedClass.java)
+shows how the ```Serializer``` class can be used to transform a JSON-LD representation of an Information Model instance
+into its (Java) object representation.
+
 ## Validation
 
 When using the builder classes to instantiate Information Model objects __and__ having the ```validation-serialization-provider```
