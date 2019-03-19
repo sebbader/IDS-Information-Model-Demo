@@ -109,9 +109,28 @@ In future versions of the Information Model Java library, we plan to support add
 validity of Information Model objects may depend on domain- or implementation-specific requirements so that this validation
 mechanism is open for extension.
 
-todo: spi documentation 
+Custom Information Model validation logic can be integrated into the validation workflow so that it is called on
+invocation of the ```.build()``` method that is provided by each object builder class. Technically, this implementation
+can be done by using Java's [Service provider interface](https://docs.oracle.com/javase/tutorial/ext/basics/spi.html) (SPI). 
+According to the SPI specification, projects need to specify the interfaces they implement. An example can be found
+in the [resources](src/main/resources) directory of this project, defining in the [services](src/main/resources) directory 
+a mapping of interfaces and their concrete implementation.
 
-[Validation.java](src/test/java/Validation.java). 
+In the example, the file [de.fraunhofer.iais.eis.spi.BeanValidator](src/main/resources/META-INF/services/de.fraunhofer.iais.eis.spi.BeanValidator)
+states that the interface ```de.fraunhofer.iais.eis.spi.BeanValidator``` is implemented by the class 
+```de.fraunhofer.iais.eis.validate.CustomBeanValidator```.
+
+In the file [Validation.java](src/test/java/Validation.java), we provide two different examples that show how the default 
+```NotNull``` and ```NotEmpty``` object validations can be extended with further functionality. The method
+
+* ```violateCustomURLValidation()``` shows that a validation exception is thrown because of undereferencable URLs, and
+* ```violateSecurityTokenValidation()``` illustrates how validation can be bound to a specific object (i.e., a ```Token``` instance).
+
+Based on the SPI-related declarations in the ```resources``` directory described above, the builders that are called
+in the two mentioned methods invoke the ```validate()``` method declared in the file [CustomBeanValidator.java](src/main/java/de/fraunhofer/iais/eis/validate/CustomBeanValidator.java).
+ 
+
+ 
 
 <!--
 ## For those that don't like Java...
