@@ -126,12 +126,10 @@ In the file [Validation.java](src/test/java/Validation.java), we provide two dif
 * ```violateCustomURLValidation()``` shows that a validation exception is thrown because of undereferencable URLs, and
 * ```violateSecurityTokenValidation()``` illustrates how validation can be bound to a specific object (i.e., a ```Token``` instance).
 
-Based on the SPI-related declarations in the ```resources``` directory described above, the builders that are called
-in the two mentioned methods invoke the ```validate()``` method declared in the file [CustomBeanValidator.java](src/main/java/de/fraunhofer/iais/eis/validate/CustomBeanValidator.java).
+Based on the SPI-related declarations in the ```resources``` directory described above, the builders' ```build()``` methods, that 
+are called in the two mentioned methods, invoke the ```validate()``` method declared in the file [CustomBeanValidator.java](src/main/java/de/fraunhofer/iais/eis/validate/CustomBeanValidator.java),
+which in turn delegates to the URL and Token validation logic.
  
-
- 
-
 <!--
 ## For those that don't like Java...
 
