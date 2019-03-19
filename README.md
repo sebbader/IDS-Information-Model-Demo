@@ -48,6 +48,17 @@ The Information Model Java library can then be included in your ```dependencies`
 </dependency>
 ``` 
 
+It is also highly recommended to include the following dependency:
+```xml
+<dependency>
+    <groupId>de.fraunhofer.iais.eis.ids.infomodel</groupId>
+    <artifactId>validation-serialization-provider</artifactId>
+    <version>1.0.2-SNAPSHOT</version>
+</dependency>
+```
+Its job is to provide methods to validate Information Model objects and to serialize them when they should be transferred
+over a network connection. These topics are described in more detail below.
+
 ## Basic Functionality
 
 Each OWL class in the ontology is represented by an identically named interface in the Java library. In addition, implementations
@@ -56,31 +67,51 @@ of these interfaces are provided as classes with ```Impl``` prefix. So, for inst
 ```Catalog.class``` of the library and accompanied by a ```public class CatalogImpl implements Catalog``` that is defined
 in the file ```CatalogImpl.class```.
 
-
 ### Object Instantiation
 
-[](src/test/java/InstantiateInfomodelClass.java)
+The easiest way to instantiate an Information Model class is to use the accompanying builder class. For instance, in order to
+create a self-description document for a Connector, you can use the class ```BaseConnectorBuilder``` as documented in the 
+method ```createConnectorDescription()``` in the file [InstantiateInfomodelClass.java](src/test/java/InstantiateInfomodelClass.java).
 
 ### Object Serialization and Deserialization 
 
-todo: infomodel instances are expressed as rdf, default format used by the lib is json-ld
+The current recommedation is to express Information Model instances in the RDF Format when publishing, transferring or storing them.
+A method to correctly serialize the instantiated Information Model objects is provided by the ```validation-serialization-provider```
+dependency (see Section "Accessing and Integrating the Libraries").
 
-[](src/test/java/SerializeInstantiatedClass.java)
+The preferred serialization format is [JSON-LD](https://json-ld.org/). It is valid JSON with some additional supportive
+attributes such as ```@context``` and ```@type```. However, if you're only working with the Java library, you don't need to
+get into the details of this format. The library calls do the serialization (i.e., object -> JSON-LD) and deserialization 
+(i.e., JSON-LD -> object) for you and are described below. 
 
+#### Serialization
 
-[](src/test/java/DeserializeInstantiatedClass.java)
+There are two ways to serialize an object (see Section "Object Instantiation"). The easiest one is to call the object's
+```toRdf()``` method as described in the method ```serializeToJsonLD_fromObject``` in file 
+[SerializeInstantiatedClass.java](src/test/java/SerializeInstantiatedClass.java). 
+
+The second (alternative) way is to directly invoke the ```Serializer``` class, as shown in method ```serializeToJsonLD_bySerializerCall()```
+in file [DeserializeInstantiatedClass.java](src/test/java/DeserializeInstantiatedClass.java). 
 
 ## Validation
 
-```xml
-<dependency>
-    <groupId>de.fraunhofer.iais.eis.ids.infomodel</groupId>
-    <artifactId>validation-serialization-provider</artifactId>
-    <version>1.0.2-SNAPSHOT</version>
-</dependency>
-```
+When using the builder classes to instantiate Information Model objects __and__ having the ```validation-serialization-provider```
+included, a validation is performed when the ```.build()``` method is invoked. This is demonstrated by the method
+```createInvalidConnectorDescription()``` in the file [InstantiateInfomodelClass.java](src/test/java/InstantiateInfomodelClass.java).
+The example shows that calling ```.build()``` throws an exception because, for instance, mandatory properties such as
+```maintainer``` are not set.
 
 ### Implementing Custom Validators
+
+Out of the box, the validation logic provided by ```validation-serialization-provider``` uses only the ```NotNull``` and
+```NotEmpty``` validation constraints from the [Java EE Validation API](https://docs.oracle.com/javaee/7/api/javax/validation/package-summary.html) (JSR-303).
+In future versions of the Information Model Java library, we plan to support additional validation constraints. However,
+validity of Information Model objects may depend on domain- or implementation-specific requirements so that this validation
+mechanism is open for extension.
+
+todo: spi documentation 
+
+[Validation.java](src/test/java/Validation.java). 
 
 <!--
 ## For those that don't like Java...
