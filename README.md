@@ -84,6 +84,20 @@ attributes such as ```@context``` and ```@type```. However, if you're only worki
 get into the details of this format. The library calls do the serialization (i.e., object -> JSON-LD) and deserialization 
 (i.e., JSON-LD -> object) for you and are described below. 
 
+#### Details on the JSON-LD serialization
+As described above, [JSON-LD](https://json-ld.org/) extends JSON by several attributes. One of them is ```@context``` which basically maps human readable names to IRIs. So basically, a ```@context``` shared between different parties can serve as a vocabulary for the exchanged JSON data. You can find more detailed information in the [specification](https://json-ld.org/spec/latest/json-ld/) ('The Context').
+
+[Fraunhofer IAIS](https://www.iais.fraunhofer.de/) ([EIS](https://www.iais.fraunhofer.de/en/institute/departments/enterprise-information-systems.html) department) provides a ```@context```-file for the IndustrialDataSpace ontology class names at https://w3id.org/idsa/contexts/context.jsonld.
+
+It can be included into hand-written JSON-LD as follows:
+```json
+{
+  ...
+  "@context" : "https://w3id.org/idsa/contexts/context.jsonld",
+  ...
+}
+```
+
 #### Serialization
 
 There are two ways to serialize an object (see Section "Object Instantiation"). The easiest one is to call the object's
