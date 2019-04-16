@@ -154,6 +154,9 @@ It can be included into hand-written JSON-LD as follows:
   "@context" : "https://w3id.org/idsa/contexts/context.jsonld",
   ...
 }
+
+TODO: the "@id" field, serialization of literals (language tags), typed literals, enums, whats the used timestamp format
+
 ```
 
 ## References
