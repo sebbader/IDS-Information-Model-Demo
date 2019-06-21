@@ -135,12 +135,124 @@ In the file [Validation.java](src/test/java/Validation.java), we provide two dif
 Based on the SPI-related declarations in the ```resources``` directory described above, the builders' ```build()``` methods, that 
 are called in the two mentioned methods, invoke the ```validate()``` method declared in the file [CustomBeanValidator.java](src/main/java/de/fraunhofer/iais/eis/validate/CustomBeanValidator.java),
 which in turn delegates to the URL and Token validation logic.
+
+## Usage Examples
+
+### Supporting the IDS Messaging Communication Paradigm
+
+Perhaps the easiest example of an IDS message that each connector should understand is the message of type ```ids:SelfDescriptionRequest```. It does not
+require any payload part and can be created using the information model library as shown in the method ```selfDescriptionRequest()``` in the file
+[Messaging.java](src/test/java/Messaging.java). In order to send this message to connector that supports the synchronous HTTP API, the serialized
+instance of the ```SelfDescriptionRequest``` class needs to be sent as HTTP POST to the ```/infrastructure``` method of the receiving connector. The
+post body itself should be of content-type ```multipart/form-data``` or ```multipart/mixed```, e.g.,
+
+```
+multipart/form-data; boundary=--------------------------949567736778671771657427
+```
+
+with this exemplary raw content:
+  
+```
+----------------------------949567736778671771657427
+Content-Disposition: form-data; name="header"
+
+{
+  "@context" : "https://w3id.org/idsa/contexts/context.jsonld",
+  "@type" : "ids:SelfDescriptionRequest",
+  "modelVersion" : "1.0.2",
+  "issued" : "2019-06-21T13:32:33.073+02:00",
+  "issuerConnector" : "http://example.org#connector",
+  "@id" : "https://w3id.org/idsa/autogen/selfDescriptionRequest/b0731661-7df1-43e5-bb75-50f0709f31c9"
+}
+----------------------------949567736778671771657427--
+```
+ 
+However, in this minimal example, the receiving connector cannot verify the authenticity of the requesting connector, i.e., it cannot
+determine if the sender is (still) a valid participant on the IDS ecosystem and if facts that it claims about itself in its self-description
+are actually trustworthy. 
+In order to provide this kind of security, each request needs to be accompanied by security token (aka 'DAPS token'). A connector that is in possession of 
+this token may present it at each outgoing message exchange so that the receiver can analyze it and decide whether to accept the message or
+deny it. Note that it is up to the receiving connector to handle and interpret the security token. The receiver may as well ignore the security token in
+case it does not perform any security-relevant data processing.
+The header part of the above example with included security token looks like this:  
+
+```
+----------------------------949567736778671771657427
+Content-Disposition: form-data; name="header"
+
+{
+  "@context" : "https://w3id.org/idsa/contexts/context.jsonld",
+  "@type" : "ids:SelfDescriptionRequest",
+  "modelVersion" : "1.0.2",
+  "issued" : "2019-06-21T13:32:33.073+02:00",
+  "issuerConnector" : "http://example.org#connector",
+  "securityToken" : {
+      "@type" : "ids:Token",
+      "tokenValue" : "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImRlZmF1bHQifQ.eyJ...",
+      "tokenFormat" : {
+        "@id" : "https://w3id.org/idsa/code/tokenformat/JWT"
+      },
+      "@id" : "https://w3id.org/idsa/autogen/token/58bf58a2-5a1b-44cb-85eb-9b4eecf5bf58"
+    },
+  "@id" : "https://w3id.org/idsa/autogen/selfDescriptionRequest/b0731661-7df1-43e5-bb75-50f0709f31c9"
+}
+----------------------------949567736778671771657427--
+```
+
+The receiving connector's response to the message above looks like this: 
+
+```
+--mPLw1UTMYjqqYqh1Bb_ttWBKcdSPfB9FBgz3
+Content-Disposition: form-data; name="header"
+Content-Type: application/json
+Content-Length: 409
+
+{
+  "@type" : "ids:SelfDescriptionResponse",
+  "issued" : "2019-06-21T13:11:14.596Z",
+  "issuerConnector" : "https://broker.ids.isst.fraunhofer.de/",
+  "correlationMessage" : "https://w3id.org/idsa/autogen/selfDescriptionRequest/b0731661-7df1-43e5-bb75-50f0709f31c9",
+  "modelVersion" : "1.0.2-SNAPSHOT",
+  "@id" : "https://w3id.org/idsa/autogen/selfDescriptionResponse/851e3218-2bb7-45f9-8795-7f99c1f19680"
+}
+--mPLw1UTMYjqqYqh1Bb_ttWBKcdSPfB9FBgz3
+Content-Disposition: form-data; name="payload"
+Content-Type: application/ld+json
+Content-Length: 965
+
+{
+  "@context" : "https://w3id.org/idsa/contexts/context.jsonld",
+  "@type" : "ids:Broker",
+  "outboundModelVersion" : "1.0.2-SNAPSHOT",
+  "descriptions" : [ {
+    "@value" : "A Broker with a graph persistence layer",
+    "@language" : "en"
+  } ],
+  "inboundModelVersions" : [ "1.0.2-SNAPSHOT" ],
+  "titles" : [ {
+    "@value" : "EIS Broker",
+    "@language" : "en"
+  } ],
+  "maintainer" : "https://www.iais.fraunhofer.de",
+  "curator" : "https://www.iais.fraunhofer.de",
+  "catalog" : {
+    "@type" : "ids:Catalog",
+    "@id" : "https://w3id.org/idsa/autogen/catalog/a50c93a3-388b-4bbd-959e-a446b7ec2946"
+  },
+  "securityProfile" : {
+    "@type" : "ids:SecurityProfile",
+    "basedOn" : {
+      "@type" : "ids:PredefinedSecurityProfile",
+      "@id" : "https://w3id.org/idsa/core/Level0SecurityProfile"
+    },
+    "@id" : "https://w3id.org/idsa/autogen/securityProfile/cca6c0e6-ad34-4d66-8137-ab94e3fad424"
+  },
+  "@id" : "https://broker.ids.isst.fraunhofer.de/"
+}
+--mPLw1UTMYjqqYqh1Bb_ttWBKcdSPfB9FBgz3--
+```
  
 <!--
-## For those that don't like Java...
-
-todo: describe how the project is platform-independent
--->
 ### The Information Model JSON-LD Serialization Format
 
 As described above, [JSON-LD](https://json-ld.org/) extends JSON by several attributes. One of them is ```@context``` which basically maps human readable names to IRIs. So basically, a ```@context``` shared between different parties can serve as a vocabulary for the exchanged JSON data. You can find more detailed information in the [specification](https://json-ld.org/spec/latest/json-ld/) ('The Context').
@@ -158,6 +270,7 @@ It can be included into hand-written JSON-LD as follows:
 TODO: the "@id" field, serialization of literals (language tags), typed literals, enums, whats the used timestamp format
 
 ```
+-->
 
 ## References
 

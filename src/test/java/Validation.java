@@ -27,6 +27,8 @@ public class Validation {
 
     @Test(expected = ConstraintViolationException.class)
     public void violateSecurityTokenValidation() throws MalformedURLException, DatatypeConfigurationException {
+        System.setProperty("doValidateToken", "true");
+
         GregorianCalendar c = new GregorianCalendar();
         c.setTime(new Date());
         XMLGregorianCalendar now = DatatypeFactory.newInstance().newXMLGregorianCalendar(c);

@@ -2,8 +2,8 @@ import de.fraunhofer.iais.eis.BaseConnector;
 import de.fraunhofer.iais.eis.BaseConnectorBuilder;
 import de.fraunhofer.iais.eis.CatalogBuilder;
 import de.fraunhofer.iais.eis.util.ConstraintViolationException;
+import org.junit.Assert;
 import org.junit.Test;
-import org.springframework.util.Assert;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -27,7 +27,7 @@ public class InstantiateInfomodelClass {
                 ._inboundModelVersions_(asList("1.0.2"))
                 .build();
 
-        Assert.notNull(instantiatedConnectorDescription);
+        Assert.assertNotNull(instantiatedConnectorDescription);
     }
 
 }
