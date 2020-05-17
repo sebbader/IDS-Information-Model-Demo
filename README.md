@@ -6,7 +6,7 @@ Infomodel classes, serializing, deserializing and validating them.
 
 ## Background
 
-The IDS Information Model is a formalization of the IDS' concepts as an [RDF](https://www.w3.org/RDF/)-based ontology. It can
+The IDS Information Model is a formalization of the IDS' concepts as an [RDF](https://www.w3.org/RDF/) -based ontology. It can
 be considered as a kind of data model, describing how these concepts (e.g., architectural components such as connectors, brokers) 
 are characterized and how they relate to each other. Therefore, in order to correctly describe a specific connector (i.e., an "instance"),
 the descriptions need to conform to the Information Model ontology.
@@ -44,7 +44,7 @@ The Information Model Java library can then be included in your ```dependencies`
 <dependency>
     <groupId>de.fraunhofer.iais.eis.ids.infomodel</groupId>
     <artifactId>java</artifactId>
-    <version>1.0.2-SNAPSHOT</version>
+    <version>3.1.0</version>
 </dependency>
 ``` 
 
@@ -53,7 +53,7 @@ It is also highly recommended to include the following dependency:
 <dependency>
     <groupId>de.fraunhofer.iais.eis.ids.infomodel</groupId>
     <artifactId>validation-serialization-provider</artifactId>
-    <version>1.0.2-SNAPSHOT</version>
+    <version>3.1.1</version>
 </dependency>
 ```
 Its job is to provide methods to validate Information Model objects and to serialize them when they should be transferred
@@ -86,12 +86,12 @@ get into the details of this format. The library calls do the serialization (i.e
 
 #### Serialization
 
-There are two ways to serialize an object (see Section "Object Instantiation"). The easiest one is to call the object's
+The main way is to directly invoke the ```Serializer``` class, as shown in method ```serializeToJsonLD_bySerializerCall()```
+in file [DeserializeInstantiatedClass.java](src/test/java/DeserializeInstantiatedClass.java). 
+
+There is also another way to serialize an object (see Section "Object Instantiation"). The object's
 ```toRdf()``` method as described in the method ```serializeToJsonLD_fromObject``` in file 
 [SerializeInstantiatedClass.java](src/test/java/SerializeInstantiatedClass.java). 
-
-The second (alternative) way is to directly invoke the ```Serializer``` class, as shown in method ```serializeToJsonLD_bySerializerCall()```
-in file [DeserializeInstantiatedClass.java](src/test/java/DeserializeInstantiatedClass.java). 
 
 #### Deserialization
 
