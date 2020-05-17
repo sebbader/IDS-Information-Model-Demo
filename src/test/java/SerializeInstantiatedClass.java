@@ -1,13 +1,15 @@
 import com.fasterxml.jackson.core.JsonProcessingException;
-import de.fraunhofer.iais.eis.*;
+import de.fraunhofer.iais.eis.BaseConnector;
+import de.fraunhofer.iais.eis.BaseConnectorBuilder;
+import de.fraunhofer.iais.eis.CatalogBuilder;
+import de.fraunhofer.iais.eis.SecurityProfile;
 import de.fraunhofer.iais.eis.ids.jsonld.Serializer;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.net.URI;
 
 import static de.fraunhofer.iais.eis.util.Util.asList;
 
@@ -15,15 +17,17 @@ public class SerializeInstantiatedClass {
 
     private Serializer serializer = new Serializer();
     private BaseConnector baseConnector;
+    private String inbound = "3.1.0";
 
     @Before
-    public void setUp() throws MalformedURLException {
+    public void setUp() {
         baseConnector = new BaseConnectorBuilder()
-            ._maintainer_(new URL("http://www.iais.fraunhofer.de/"))
-            ._curator_(new URL("http://www.iais.fraunhofer.de/"))
+            ._maintainer_(URI.create("http://www.iais.fraunhofer.de/"))
+            ._curator_(URI.create("http://www.iais.fraunhofer.de/"))
             ._catalog_(new CatalogBuilder().build())
-            ._outboundModelVersion_("1.0.2")
-            ._inboundModelVersions_(asList("1.0.2"))
+            ._securityProfile_(SecurityProfile.BASE_CONNECTOR_SECURITY_PROFILE)
+            ._outboundModelVersion_(inbound)
+            ._inboundModelVersion_(asList(inbound))
             .build();
     }
 

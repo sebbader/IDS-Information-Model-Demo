@@ -6,7 +6,7 @@
 
     <groupId>de.fraunhofer.iais.eis.ids.infomodel</groupId>
     <artifactId>demo</artifactId>
-    <version>1.0.2-SNAPSHOT</version>
+    <version>3.1.0</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -17,14 +17,19 @@
         <dependency>
             <groupId>de.fraunhofer.iais.eis.ids.infomodel</groupId>
             <artifactId>java</artifactId>
-            <version>1.0.2-SNAPSHOT</version>
+            <version>3.1.0</version>
         </dependency>
 
         <!-- Optional dependency: validates Information Model Beans and serializes them to a JSON-LD representation -->
         <dependency>
             <groupId>de.fraunhofer.iais.eis.ids.infomodel</groupId>
             <artifactId>validation-serialization-provider</artifactId>
-            <version>1.0.2-SNAPSHOT</version>
+            <version>3.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>de.fraunhofer.iais.eis.ids</groupId>
+            <artifactId>infomodel-serializer</artifactId>
+            <version>3.1.0</version>
         </dependency>
 
         <!-- for HTTP URL validation -->
@@ -59,8 +64,8 @@
 
     <repositories>
         <repository>
-            <id>eis-snapshot-repo</id>
-            <name>maven-snapshots</name>
+            <id>eis-public-repo</id>
+            <name>maven-public</name>
             <url>http://maven.iais.fraunhofer.de/artifactory/eis-ids-public</url>
         </repository>
     </repositories>

@@ -7,7 +7,10 @@
   },
   "maintainer" : "http://www.iais.fraunhofer.de/",
   "curator" : "http://www.iais.fraunhofer.de/",
-  "inboundModelVersions" : [ "1.0.2" ],
-  "outboundModelVersion" : "1.0.2",
+  "inboundModelVersion" : [ "3.1.0" ],
+  "outboundModelVersion" : "3.1.0",
+  "ids:securityProfile" : {
+    "@id" : "idsc:BASE_CONNECTOR_SECURITY_PROFILE"
+  },
   "@id" : "https://w3id.org/idsa/autogen/baseConnector/43d5a33e-4f8a-44f0-aa25-f3f2d6b12ec1"
 }
