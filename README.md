@@ -32,8 +32,8 @@ Java programming language. It can be
 ```xml
 <repositories>
    <repository>
-       <id>eis-snapshot-repo</id>
-       <name>maven-snapshots</name>
+       <id>eis-public-repo</id>
+       <name>maven-public</name>
        <url>http://maven.iais.fraunhofer.de/artifactory/eis-ids-public</url>
    </repository>
 </repositories>
@@ -140,10 +140,10 @@ which in turn delegates to the URL and Token validation logic.
 
 ### Supporting the IDS Messaging Communication Paradigm
 
-Perhaps the easiest example of an IDS message that each connector should understand is the message of type ```ids:SelfDescriptionRequest```. It does not
+Perhaps the easiest example of an IDS message that each connector should understand is the message of type ```ids:DescriptionRequestMessage```. It does not
 require any payload part and can be created using the information model library as shown in the method ```selfDescriptionRequest()``` in the file
 [Messaging.java](src/test/java/Messaging.java). In order to send this message to connector that supports the synchronous HTTP API, the serialized
-instance of the ```SelfDescriptionRequest``` class needs to be sent as HTTP POST to the ```/infrastructure``` method of the receiving connector. The
+instance of the ```DescriptionRequestMessage``` class needs to be sent as HTTP POST to the ```/infrastructure``` method of the receiving connector. The
 post body itself should be of content-type ```multipart/form-data``` or ```multipart/mixed```, e.g.,
 
 ```
@@ -158,9 +158,9 @@ Content-Disposition: form-data; name="header"
 
 {
   "@context" : "https://w3id.org/idsa/contexts/context.jsonld",
-  "@type" : "ids:SelfDescriptionRequest",
-  "modelVersion" : "1.0.2",
-  "issued" : "2019-06-21T13:32:33.073+02:00",
+  "@type" : "ids:DescriptionRequestMessage",
+  "modelVersion" : "3.1.0",
+  "issued" : "2020-05-21T13:32:33.073+02:00",
   "issuerConnector" : "http://example.org#connector",
   "@id" : "https://w3id.org/idsa/autogen/selfDescriptionRequest/b0731661-7df1-43e5-bb75-50f0709f31c9"
 }
@@ -182,9 +182,9 @@ Content-Disposition: form-data; name="header"
 
 {
   "@context" : "https://w3id.org/idsa/contexts/context.jsonld",
-  "@type" : "ids:SelfDescriptionRequest",
-  "modelVersion" : "1.0.2",
-  "issued" : "2019-06-21T13:32:33.073+02:00",
+  "@type" : "ids:DescriptionRequestMessage",
+  "modelVersion" : "3.1.0",
+  "issued" : "2020-05-21T13:32:33.073+02:00",
   "issuerConnector" : "http://example.org#connector",
   "securityToken" : {
       "@type" : "ids:Token",
@@ -208,11 +208,11 @@ Content-Type: application/json
 Content-Length: 409
 
 {
-  "@type" : "ids:SelfDescriptionResponse",
-  "issued" : "2019-06-21T13:11:14.596Z",
+  "@type" : "ids:DescriptionResponseMessage",
+  "issued" : "2020-05-21T13:11:14.596Z",
   "issuerConnector" : "https://broker.ids.isst.fraunhofer.de/",
   "correlationMessage" : "https://w3id.org/idsa/autogen/selfDescriptionRequest/b0731661-7df1-43e5-bb75-50f0709f31c9",
-  "modelVersion" : "1.0.2-SNAPSHOT",
+  "modelVersion" : "3.1.0",
   "@id" : "https://w3id.org/idsa/autogen/selfDescriptionResponse/851e3218-2bb7-45f9-8795-7f99c1f19680"
 }
 --mPLw1UTMYjqqYqh1Bb_ttWBKcdSPfB9FBgz3
@@ -223,13 +223,13 @@ Content-Length: 965
 {
   "@context" : "https://w3id.org/idsa/contexts/context.jsonld",
   "@type" : "ids:Broker",
-  "outboundModelVersion" : "1.0.2-SNAPSHOT",
-  "descriptions" : [ {
+  "outboundModelVersion" : "3.1.0",
+  "description" : [ {
     "@value" : "A Broker with a graph persistence layer",
     "@language" : "en"
   } ],
-  "inboundModelVersions" : [ "1.0.2-SNAPSHOT" ],
-  "titles" : [ {
+  "inboundModelVersion" : [ "3.1.0" ],
+  "title" : [ {
     "@value" : "EIS Broker",
     "@language" : "en"
   } ],
@@ -242,7 +242,7 @@ Content-Length: 965
   "securityProfile" : {
     "@type" : "ids:SecurityProfile",
     "basedOn" : {
-      "@type" : "ids:PredefinedSecurityProfile",
+      "@type" : "ids:SecurityProfile",
       "@id" : "https://w3id.org/idsa/core/Level0SecurityProfile"
     },
     "@id" : "https://w3id.org/idsa/autogen/securityProfile/cca6c0e6-ad34-4d66-8137-ab94e3fad424"
@@ -277,7 +277,12 @@ TODO: the "@id" field, serialization of literals (language tags), typed literals
 * [IDS Information Model](https://github.com/IndustrialDataSpace/InformationModel)
 * [Information Model Library Maven Repository](https://maven.iais.fraunhofer.de/artifactory/eis-ids-public/)
 
+## Contact
+
+For bug reports, issues or general help please write an email to [our bugtracking list](mailto:contact@ids.fraunhofer.de).
+
 ## Contributors
 
 * Christian Mader (Fraunhofer IAIS)
 * Benedikt Imbusch (Fraunhofer IAIS)
+* Sebastian Bader (Fraunhofer IAIS)
