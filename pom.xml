@@ -24,12 +24,12 @@
         <dependency>
             <groupId>de.fraunhofer.iais.eis.ids.infomodel</groupId>
             <artifactId>validation-serialization-provider</artifactId>
-            <version>3.0.0</version>
+            <version>3.1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>de.fraunhofer.iais.eis.ids</groupId>
             <artifactId>infomodel-serializer</artifactId>
-            <version>3.1.0</version>
+            <version>3.1.1-SNAPSHOT</version>
         </dependency>
 
         <!-- for HTTP URL validation -->
@@ -67,6 +67,11 @@
             <id>eis-public-repo</id>
             <name>maven-public</name>
             <url>http://maven.iais.fraunhofer.de/artifactory/eis-ids-public</url>
+        </repository>
+        <repository>
+            <id>eis-snapshot-repo</id>
+            <name>maven-snapshot</name>
+            <url>http://maven.iais.fraunhofer.de/artifactory/eis-ids-snapshot</url>
         </repository>
     </repositories>
 

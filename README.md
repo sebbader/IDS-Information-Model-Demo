@@ -31,13 +31,19 @@ Java programming language. It can be
 * or included in Maven-based project's ```pom.xml``` file like this:
 ```xml
 <repositories>
-   <repository>
-       <id>eis-public-repo</id>
-       <name>maven-public</name>
-       <url>http://maven.iais.fraunhofer.de/artifactory/eis-ids-public</url>
-   </repository>
+        <repository>
+            <id>eis-public-repo</id>
+            <name>maven-public</name>
+            <url>http://maven.iais.fraunhofer.de/artifactory/eis-ids-public</url>
+        </repository>
+        <repository>
+            <id>eis-snapshot-repo</id>
+            <name>maven-snapshot</name>
+            <url>http://maven.iais.fraunhofer.de/artifactory/eis-ids-snapshot</url>
+        </repository>
 </repositories>
 ```
+Note that the `eis-snapshot-repo` is containing development releases and requires a further username and password.
 
 The Information Model Java library can then be included in your ```dependencies``` section in this way: 
 ```xml

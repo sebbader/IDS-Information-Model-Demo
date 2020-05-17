@@ -3,6 +3,7 @@ import de.fraunhofer.iais.eis.DescriptionRequestMessageBuilder;
 import de.fraunhofer.iais.eis.DynamicAttributeTokenBuilder;
 import de.fraunhofer.iais.eis.TokenFormat;
 import de.fraunhofer.iais.eis.ids.jsonld.Serializer;
+import de.fraunhofer.iais.eis.util.Util;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -33,6 +34,7 @@ public class Messaging {
                         ._tokenValue_("eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImRlZmF1bHQifQ.eyJ...")
                         .build())
                 ._senderAgent_(URI.create("http://example.org#senderAgent"))
+                ._recipientConnector_(Util.asList(URI.create("http://example.org#recipientConnector1"),URI.create("http://example.org#recipientConnector2")))
                 .build();
 
         Serializer serializer = new Serializer();
