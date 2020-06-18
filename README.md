@@ -219,11 +219,11 @@ Content-Length: 409
   "issuerConnector" : "https://broker.ids.isst.fraunhofer.de/",
   "securityToken" : {
       "@type" : "ids:Token",
-      "tokenValue" : "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImRlZmF1bHQifQ.eyJ...",
+      "tokenValue" : "eyJhbGciOiJSUzI1NiasdkfJAs6IkpXVCIsImtpZCI6ImRlZmF1bHQifQ.eyJ...",
       "tokenFormat" : {
         "@id" : "https://w3id.org/idsa/code/tokenformat/JWT"
       },
-      "@id" : "https://w3id.org/idsa/autogen/token/58bf58a2-5a1b-44cb-85eb-9b4eecf5bf58"
+      "@id" : "https://w3id.org/idsa/autogen/token/29cf78b3-29c3-44cb-9321-9b4eecf5bf58"
     },
   "correlationMessage" : "https://w3id.org/idsa/autogen/selfDescriptionRequest/b0731661-7df1-43e5-bb75-50f0709f31c9",
   "modelVersion" : "3.1.0",
