@@ -217,6 +217,14 @@ Content-Length: 409
   "@type" : "ids:DescriptionResponseMessage",
   "issued" : "2020-05-21T13:11:14.596Z",
   "issuerConnector" : "https://broker.ids.isst.fraunhofer.de/",
+  "securityToken" : {
+      "@type" : "ids:Token",
+      "tokenValue" : "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImRlZmF1bHQifQ.eyJ...",
+      "tokenFormat" : {
+        "@id" : "https://w3id.org/idsa/code/tokenformat/JWT"
+      },
+      "@id" : "https://w3id.org/idsa/autogen/token/58bf58a2-5a1b-44cb-85eb-9b4eecf5bf58"
+    },
   "correlationMessage" : "https://w3id.org/idsa/autogen/selfDescriptionRequest/b0731661-7df1-43e5-bb75-50f0709f31c9",
   "modelVersion" : "3.1.0",
   "@id" : "https://w3id.org/idsa/autogen/selfDescriptionResponse/851e3218-2bb7-45f9-8795-7f99c1f19680"
