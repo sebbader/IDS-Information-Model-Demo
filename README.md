@@ -43,7 +43,8 @@ Java programming language. It can be
         </repository>
 </repositories>
 ```
-Note that the `eis-snapshot-repo` is containing development releases and requires a further username and password.
+Note that the `eis-snapshot-repo` is containing development releases and requires a further username and password. Please 
+contact the maintainer of this project to get access to the SNAPSHOT repository.
 
 The Information Model Java library can then be included in your ```dependencies``` section in this way: 
 ```xml
@@ -59,11 +60,12 @@ It is also highly recommended to include the following dependency:
 <dependency>
     <groupId>de.fraunhofer.iais.eis.ids.infomodel</groupId>
     <artifactId>validation-serialization-provider</artifactId>
-    <version>3.1.1</version>
+    <version>3.1.1-SNAPSHOT</version>
 </dependency>
 ```
 Its job is to provide methods to validate Information Model objects and to serialize them when they should be transferred
-over a network connection. These topics are described in more detail below.
+over a network connection. These topics are described in more detail below. Please note that access to the SNAPSHOT repository is required to 
+add this dependency.
 
 ## Basic Functionality
 
@@ -143,6 +145,9 @@ are called in the two mentioned methods, invoke the ```validate()``` method decl
 which in turn delegates to the URL and Token validation logic.
 
 ## Usage Examples
+
+All examples of this demo project are provided in the form of JUnit tests (src/test/java). Note that some tests expect the existence of 
+the validator dependency, and will fail without it.
 
 ### Supporting the IDS Messaging Communication Paradigm
 
