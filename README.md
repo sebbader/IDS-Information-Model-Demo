@@ -31,13 +31,20 @@ Java programming language. It can be
 * or included in Maven-based project's ```pom.xml``` file like this:
 ```xml
 <repositories>
-   <repository>
-       <id>eis-public-repo</id>
-       <name>maven-public</name>
-       <url>http://maven.iais.fraunhofer.de/artifactory/eis-ids-public</url>
-   </repository>
+        <repository>
+            <id>eis-public-repo</id>
+            <name>maven-public</name>
+            <url>http://maven.iais.fraunhofer.de/artifactory/eis-ids-public</url>
+        </repository>
+        <repository>
+            <id>eis-snapshot-repo</id>
+            <name>maven-snapshot</name>
+            <url>http://maven.iais.fraunhofer.de/artifactory/eis-ids-snapshot</url>
+        </repository>
 </repositories>
 ```
+Note that the `eis-snapshot-repo` is containing development releases and requires a further username and password. Please 
+contact the maintainer of this project to get access to the SNAPSHOT repository.
 
 The Information Model Java library can then be included in your ```dependencies``` section in this way: 
 ```xml
@@ -53,11 +60,12 @@ It is also highly recommended to include the following dependency:
 <dependency>
     <groupId>de.fraunhofer.iais.eis.ids.infomodel</groupId>
     <artifactId>validation-serialization-provider</artifactId>
-    <version>3.1.1</version>
+    <version>3.1.1-SNAPSHOT</version>
 </dependency>
 ```
 Its job is to provide methods to validate Information Model objects and to serialize them when they should be transferred
-over a network connection. These topics are described in more detail below.
+over a network connection. These topics are described in more detail below. Please note that access to the SNAPSHOT repository is required to 
+add this dependency.
 
 ## Basic Functionality
 
@@ -138,6 +146,9 @@ which in turn delegates to the URL and Token validation logic.
 
 ## Usage Examples
 
+All examples of this demo project are provided in the form of JUnit tests (src/test/java). Note that some tests expect the existence of 
+the validator dependency, and will fail without it.
+
 ### Supporting the IDS Messaging Communication Paradigm
 
 Perhaps the easiest example of an IDS message that each connector should understand is the message of type ```ids:DescriptionRequestMessage```. It does not
@@ -211,6 +222,14 @@ Content-Length: 409
   "@type" : "ids:DescriptionResponseMessage",
   "issued" : "2020-05-21T13:11:14.596Z",
   "issuerConnector" : "https://broker.ids.isst.fraunhofer.de/",
+  "securityToken" : {
+      "@type" : "ids:Token",
+      "tokenValue" : "eyJhbGciOiJSUzI1NiasdkfJAs6IkpXVCIsImtpZCI6ImRlZmF1bHQifQ.eyJ...",
+      "tokenFormat" : {
+        "@id" : "https://w3id.org/idsa/code/tokenformat/JWT"
+      },
+      "@id" : "https://w3id.org/idsa/autogen/token/29cf78b3-29c3-44cb-9321-9b4eecf5bf58"
+    },
   "correlationMessage" : "https://w3id.org/idsa/autogen/selfDescriptionRequest/b0731661-7df1-43e5-bb75-50f0709f31c9",
   "modelVersion" : "3.1.0",
   "@id" : "https://w3id.org/idsa/autogen/selfDescriptionResponse/851e3218-2bb7-45f9-8795-7f99c1f19680"
