@@ -18,9 +18,9 @@ public class Validation {
     @Test(expected = ConstraintViolationException.class)
     public void violateCustomURLValidation()  {
         new BaseConnectorBuilder()
-                ._maintainer_(URI.create("http://www.iais.fraunhofer.de/"))
-                ._curator_(URI.create("http://www.iais.fraunhofer.de/unknownTarget"))
-                ._catalog_(new CatalogBuilder().build())
+                ._maintainerAsUri_(URI.create("http://www.iais.fraunhofer.de/"))
+                ._curatorAsUri_(URI.create("http://www.iais.fraunhofer.de/unknownTarget"))
+                ._resourceCatalog_(new ResourceCatalogBuilder().build())
                 ._outboundModelVersion_(inbound)
                 ._inboundModelVersion_(asList(inbound))
                 .build();
@@ -34,7 +34,7 @@ public class Validation {
         c.setTime(new Date());
         XMLGregorianCalendar now = DatatypeFactory.newInstance().newXMLGregorianCalendar(c);
 
-        new ConnectorAvailableMessageBuilder()
+        new ConnectorUpdateMessageBuilder()
                 ._issuerConnector_(URI.create("http://www.iais.fraunhofer.de"))
                 ._issued_(now)
                 ._modelVersion_(inbound)

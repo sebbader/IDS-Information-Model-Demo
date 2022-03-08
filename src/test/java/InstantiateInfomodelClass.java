@@ -1,6 +1,6 @@
 import de.fraunhofer.iais.eis.BaseConnector;
 import de.fraunhofer.iais.eis.BaseConnectorBuilder;
-import de.fraunhofer.iais.eis.CatalogBuilder;
+import de.fraunhofer.iais.eis.ResourceCatalogBuilder;
 import de.fraunhofer.iais.eis.SecurityProfile;
 import de.fraunhofer.iais.eis.util.ConstraintViolationException;
 import org.junit.Assert;
@@ -25,12 +25,12 @@ public class InstantiateInfomodelClass {
     @Test
     public void createConnectorDescription() {
         BaseConnector instantiatedConnectorDescription = new BaseConnectorBuilder()
-                ._maintainer_(URI.create("http://www.iais.fraunhofer.de/"))
-                ._curator_(URI.create("http://www.iais.fraunhofer.de/"))
-                ._catalog_(new CatalogBuilder().build())
+                ._maintainerAsUri_(URI.create("http://www.iais.fraunhofer.de/"))
+                ._maintainerAsUri_(URI.create("http://www.iais.fraunhofer.de/"))
+                ._resourceCatalog_(new ResourceCatalogBuilder().build())
                 ._outboundModelVersion_(inbound)
                 ._inboundModelVersion_(asList(inbound))
-                ._securityProfile_(SecurityProfile.BASE_CONNECTOR_SECURITY_PROFILE)
+                ._securityProfile_(SecurityProfile.BASE_SECURITY_PROFILE)
                 .build();
 
         Assert.assertNotNull(instantiatedConnectorDescription);
